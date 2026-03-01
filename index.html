@@ -24,14 +24,12 @@
       padding-top: 20px;
       display: flex;
       flex-direction: column;
+      align-items: center;
     }
 
-    .sidebar h2 {
-      text-align: center;
-      font-size: 18px;
-      margin-bottom: 20px;
-      color: #2aa9ff;
-      letter-spacing: 1px;
+    .sidebar img {
+      width: 150px;
+      margin-bottom: 25px;
     }
 
     .nav-item {
@@ -39,6 +37,8 @@
       cursor: pointer;
       color: #c7cbe0;
       font-size: 14px;
+      width: 100%;
+      text-align: left;
       border-left: 3px solid transparent;
     }
 
@@ -146,96 +146,11 @@
 
   <!-- Sidebar -->
   <div class="sidebar">
-    <h2>OCN EFB</h2>
+    <img src="vocn-logo.png">
+
     <div class="nav-item" onclick="window.location.href='index.html'">Dashboard</div>
+    <div class="nav-item" onclick="window.location.href='statistics.html'">Statistics</div>
+    <div class="nav-item" onclick="window.location.href='timeline.html'">Timeline</div>
     <div class="nav-item" onclick="window.location.href='map.html'">Live Map</div>
     <div class="nav-item" onclick="window.location.href='fleet.html'">Fleet</div>
-    <div class="nav-item" onclick="window.location.href='maintenance.html'">Maintenance</div>
-  </div>
-
-  <!-- Main -->
-  <div class="main">
-
-    <!-- Banner -->
-    <div class="banner">
-      <div class="banner-overlay">
-        <div class="banner-title">vOCN · Discover Virtual</div>
-        <div class="pilot-box">
-          <b id="pilotNameBox">Pilot Offline</b><br>
-          <span id="pilotIdBox">Bitte einloggen</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Content -->
-    <div class="content">
-
-      <div class="card">
-        <h3>SimBrief Login</h3>
-        <p>Gib deine <b>SimBrief UserID</b> ein, um OFP‑Daten zu laden.</p>
-
-        <input id="pilotIdInput" placeholder="SimBrief UserID">
-        <button id="loginBtn">Login</button>
-
-        <p id="loginStatus"></p>
-      </div>
-
-      <div class="card">
-        <h3>OFP Daten</h3>
-        <div id="ofpBox">Noch keine Daten geladen.</div>
-      </div>
-
-    </div>
-  </div>
-
-  <script>
-    const el = (id) => document.getElementById(id);
-
-    el("loginBtn").addEventListener("click", async () => {
-      const id = el("pilotIdInput").value.trim();
-      if (!id) return;
-
-      const res = await fetch(`https://www.simbrief.com/api/xml.fetcher.php?userid=${id}`);
-      const text = await res.text();
-
-      const parser = new DOMParser();
-      const xml = parser.parseFromString(text, "text/xml");
-
-      const general = xml.querySelector("general");
-      const aircraft = xml.querySelector("aircraft");
-      const weights = xml.querySelector("weights");
-      const times = xml.querySelector("times");
-
-      const pilotName = general?.querySelector("pilot_name")?.textContent || "SimBrief Pilot";
-      const flightNumber = general?.querySelector("flight_number")?.textContent || "N/A";
-      const dep = general?.querySelector("origin")?.textContent || "N/A";
-      const arr = general?.querySelector("destination")?.textContent || "N/A";
-      const route = general?.querySelector("route")?.textContent || "N/A";
-
-      const pax = weights?.querySelector("pax_count")?.textContent || "0";
-      const cargo = weights?.querySelector("cargo")?.textContent || "0";
-      const blockFuel = weights?.querySelector("block_fuel")?.textContent || "0";
-
-      const etd = times?.querySelector("est_out")?.textContent || "N/A";
-      const eta = times?.querySelector("est_in")?.textContent || "N/A";
-
-      el("pilotNameBox").textContent = pilotName;
-      el("pilotIdBox").textContent = "SimBrief ID: " + id;
-
-      el("loginStatus").textContent = `OFP geladen für Flug ${flightNumber}`;
-
-      el("ofpBox").innerHTML = `
-        <p><b>Flug:</b> ${flightNumber}</p>
-        <p><b>Route:</b> ${dep} → ${arr}</p>
-        <p><b>Routing:</b> ${route}</p>
-        <p><b>Pax:</b> ${pax}</p>
-        <p><b>Cargo:</b> ${cargo} kg</p>
-        <p><b>Block Fuel:</b> ${blockFuel} kg</p>
-        <p><b>ETD:</b> ${etd}</p>
-        <p><b>ETA:</b> ${eta}</p>
-      `;
-    });
-  </script>
-
-</body>
-</html>
+    <div class="nav-item" onclick="window.location.href='maintenance.html'">
