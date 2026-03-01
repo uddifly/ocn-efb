@@ -1,0 +1,27 @@
+[
+  {
+    "reg": "D-OCNA",
+    "hours": 28912,
+    "cycles": 12431,
+    "defects": []
+  },
+  {
+    "reg": "D-OCNB",
+    "hours": 30112,
+    "cycles": 13122,
+    "defects": [
+      {
+        "id": 1,
+        "title": "APU INOP",
+        "reported": "2026-03-01T08:00Z",
+        "status": "OPEN"
+      }
+    ]
+  },
+  {
+    "reg": "D-OCNC",
+    "hours": 25001,
+    "cycles": 11002,
+    "defects": []
+  }
+]

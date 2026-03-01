@@ -1,0 +1,26 @@
+[
+  {
+    "reg": "D-OCNA",
+    "type": "A320-214",
+    "location": "EDDF",
+    "hours": 28912,
+    "cycles": 12431,
+    "status": "SERVICEABLE"
+  },
+  {
+    "reg": "D-OCNB",
+    "type": "A320-214",
+    "location": "EDDM",
+    "hours": 30112,
+    "cycles": 13122,
+    "status": "MEL"
+  },
+  {
+    "reg": "D-OCNC",
+    "type": "A321-211",
+    "location": "EDDF",
+    "hours": 25001,
+    "cycles": 11002,
+    "status": "A-CHECK DUE"
+  }
+]
