@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>OCN Fleet</title>
+  <style>
+    body { background:#050814; color:#fff; font-family:Arial; padding:20px; }
+    .item { padding:10px; border-bottom:1px solid #27314a; }
+  </style>
+</head>
+<body>
+
+<h2>OCN Fleet</h2>
+<div id="fleet"></div>
+
+<script>
+async function loadFleet() {
+  const res = await fetch("fleet.json");
+  const data = await res.json();
+  const list = document.getElementById("fleet");
+
+  data.forEach(ac => {
+    const div = document.createElement("div");
+    div.className = "item";
+    div.innerHTML = `${ac.reg} – ${ac.type} – ${ac.location} – ${ac.status}`;
+    list.appendChild(div);
+  });
+}
+loadFleet();
+</script>
+
+</body>
+</html>
