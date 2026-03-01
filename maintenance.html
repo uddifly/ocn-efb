@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>OCN Maintenance</title>
+  <style>
+    body { background:#050814; color:#fff; font-family:Arial; padding:20px; }
+    .item { padding:10px; border-bottom:1px solid #27314a; }
+  </style>
+</head>
+<body>
+
+<h2>OCN Maintenance</h2>
+<div id="maint"></div>
+
+<script>
+async function loadMaint() {
+  const res = await fetch("maintenance.json");
+  const data = await res.json();
+  const list = document.getElementById("maint");
+
+  data.forEach(ac => {
+    const div = document.createElement("div");
+    div.className = "item";
+    div.innerHTML = `<b>${ac.reg}</b><br>Hours: ${ac.hours}<br>Cycles: ${ac.cycles}<br>Defects: ${
+      ac.defects.length > 0 ? ac.defects.map(d => d.title).join(", ") : "None"
+    }`;
+    list.appendChild(div);
+  });
+}
+loadMaint();
+</script>
+
+</body>
+</html>
