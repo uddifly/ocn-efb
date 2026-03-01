@@ -1,0 +1,17 @@
+[
+  {
+    "title": "EDDF RWY 18 CLOSED",
+    "valid": "UNTIL 30 MAR",
+    "type": "AIRPORT"
+  },
+  {
+    "title": "OCN A320 PACK 2 MEL ALLOWED",
+    "valid": "MEL 21-12",
+    "type": "COMPANY"
+  },
+  {
+    "title": "DE-ICING REQUIRED BELOW 5°C",
+    "valid": "OPS",
+    "type": "COMPANY"
+  }
+]
