@@ -5,819 +5,95 @@
   <title>OCN Web EFB</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    :root {
-      --ocn-bg: #050814;
-      --ocn-bg-alt: #0b1020;
-      --ocn-accent: #2aa9ff;
-      --ocn-accent-soft: #16324a;
-      --ocn-text: #f5f7ff;
-      --ocn-muted: #9aa3c2;
-      --ocn-danger: #ff4b6a;
-      --ocn-success: #3fd58a;
-      --ocn-warning: #ffb347;
-      --radius: 10px;
-    }
-
-    * {
-      box-sizing: border-box;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-
     body {
       margin: 0;
-      background: radial-gradient(circle at top, #101633 0, #02030a 55%, #000 100%);
-      color: var(--ocn-text);
-      display: flex;
-      min-height: 100vh;
+      background: #050814;
+      color: #fff;
+      font-family: Arial, sans-serif;
     }
-
-    .app {
+    .navbar {
       display: flex;
-      flex-direction: column;
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
+      background: #0b1020;
       padding: 10px;
       gap: 10px;
+      border-bottom: 1px solid #1b2238;
     }
-
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: linear-gradient(135deg, #050814, #0b1020);
-      border-radius: var(--radius);
-      padding: 10px 14px;
-      border: 1px solid #1b2238;
-      box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .brand-logo {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, #2aa9ff, #16324a 60%, #050814 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 16px;
-      color: #f5f7ff;
-      box-shadow: 0 0 12px rgba(42, 169, 255, 0.7);
-    }
-
-    .brand-text-title {
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      font-size: 13px;
-      text-transform: uppercase;
-      color: var(--ocn-muted);
-    }
-
-    .brand-text-sub {
-      font-size: 11px;
-      color: var(--ocn-muted);
-    }
-
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 11px;
-      color: var(--ocn-muted);
-    }
-
-    .pill {
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid #27314a;
-      background: #050814;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .pill-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--ocn-success);
-      box-shadow: 0 0 8px rgba(63, 213, 138, 0.8);
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 2fr 1.5fr;
-      gap: 10px;
-    }
-
-    @media (max-width: 900px) {
-      .layout {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .card {
-      background: var(--ocn-bg-alt);
-      border-radius: var(--radius);
-      border: 1px solid #1b2238;
-      padding: 10px;
-      box-shadow: 0 0 18px rgba(0, 0, 0, 0.7);
-    }
-
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
-    }
-
-    .card-title {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--ocn-muted);
-    }
-
-    .badge {
-      font-size: 10px;
-      padding: 2px 8px;
-      border-radius: 999px;
-      background: var(--ocn-accent-soft);
-      color: var(--ocn-accent);
-      border: 1px solid rgba(42, 169, 255, 0.4);
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    .field-label {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--ocn-muted);
-      margin-bottom: 2px;
-    }
-
-    .field-value {
-      font-size: 13px;
-      font-weight: 500;
-    }
-
-    .field-value-small {
-      font-size: 11px;
-      color: var(--ocn-muted);
-    }
-
-    .divider {
-      height: 1px;
-      background: linear-gradient(to right, transparent, #27314a, transparent);
-      margin: 8px 0;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-    }
-
-    .tag {
-      font-size: 10px;
-      padding: 2px 6px;
-      border-radius: 999px;
+    .navbar button {
       background: #050814;
       border: 1px solid #27314a;
-      color: var(--ocn-muted);
-    }
-
-    .status-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: 11px;
-      color: var(--ocn-muted);
-      margin-bottom: 3px;
-    }
-
-    .status-label {
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-size: 9px;
-    }
-
-    .status-value {
-      font-weight: 500;
-      font-size: 11px;
-    }
-
-    .status-ok {
-      color: var(--ocn-success);
-    }
-
-    .status-warn {
-      color: var(--ocn-warning);
-    }
-
-    .status-bad {
-      color: var(--ocn-danger);
-    }
-
-    .btn-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 6px;
-    }
-
-    button {
-      border-radius: 999px;
-      border: 1px solid #27314a;
-      background: #050814;
-      color: var(--ocn-text);
-      padding: 5px 10px;
-      font-size: 11px;
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 6px;
       cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
     }
-
-    button.primary {
-      background: linear-gradient(135deg, #2aa9ff, #1b6fd1);
+    .navbar button:hover {
+      background: #2aa9ff;
       border-color: #2aa9ff;
-      box-shadow: 0 0 12px rgba(42, 169, 255, 0.7);
     }
-
-    button:active {
-      transform: translateY(1px);
-      box-shadow: none;
+    .container {
+      padding: 20px;
     }
-
-    .timer {
-      font-family: ui-monospace, Menlo, Monaco, Consolas, "Courier New", monospace;
-      font-size: 18px;
-      letter-spacing: 0.18em;
+    .title {
+      font-size: 22px;
+      margin-bottom: 10px;
     }
-
-    .list {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      font-size: 11px;
+    .input-row {
+      margin-top: 20px;
     }
-
-    .list-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 4px 0;
-      border-bottom: 1px dashed #222a3f;
-    }
-
-    .list-item:last-child {
-      border-bottom: none;
-    }
-
-    .pill-small {
-      font-size: 9px;
-      padding: 2px 6px;
-      border-radius: 999px;
+    input {
+      padding: 8px;
+      border-radius: 6px;
       border: 1px solid #27314a;
-      background: #050814;
-      color: var(--ocn-muted);
+      background: #0b1020;
+      color: #fff;
     }
-
-    .login-bar {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-    }
-
-    .login-input {
-      background: #050814;
-      border-radius: 999px;
-      border: 1px solid #27314a;
-      padding: 4px 8px;
-      color: var(--ocn-text);
-      font-size: 11px;
-      min-width: 120px;
-    }
-
-    .login-input::placeholder {
-      color: #4b5675;
-    }
-
-    .pill-role {
-      font-size: 10px;
-      padding: 2px 8px;
-      border-radius: 999px;
-      background: #050814;
-      border: 1px solid #27314a;
-      color: var(--ocn-accent);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
+    button.primary {
+      background: #2aa9ff;
+      border-color: #2aa9ff;
+      margin-left: 10px;
     }
   </style>
 </head>
 <body>
-  <div class="app">
-    <header>
-      <div class="brand">
-        <div class="brand-logo">OCN</div>
-        <div>
-          <div class="brand-text-title">OCN AIRLINES</div>
-          <div class="brand-text-sub">Electronic Flight Bag · Company Use Only</div>
-        </div>
-      </div>
-      <div class="header-right">
-        <div class="pill">
-          <div class="pill-dot"></div>
-          <span id="simStatus">SIM LINK STANDBY</span>
-        </div>
-        <div class="login-bar">
-          <input id="pilotIdInput" class="login-input" placeholder="Pilot ID / Callsign" />
-          <button id="loginBtn">Login</button>
-        </div>
-      </div>
-    </header>
 
-    <div class="layout">
-      <!-- LEFT COLUMN -->
-      <div class="column-left">
-        <!-- ACTIVE FLIGHT / BRIEFING -->
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">Active Flight · Briefing</div>
-            <span class="badge" id="flightStatusBadge">PRE-FLIGHT</span>
-          </div>
-          <div class="grid-2">
-            <div>
-              <div class="field-label">Flight</div>
-              <div class="field-value" id="flightNumber">OCN123</div>
-              <div class="field-value-small" id="callsign">OCN123 · LINE OPS</div>
-            </div>
-            <div>
-              <div class="field-label">Date / Duty</div>
-              <div class="field-value" id="flightDate">01 MAR 2026</div>
-              <div class="field-value-small" id="dutyInfo">DUTY 03:15 · BLOCK 02:05</div>
-            </div>
-          </div>
+  <div class="navbar">
+    <button onclick="window.location.href='index.html'">Home</button>
+    <button onclick="window.location.href='map.html'">Live Map</button>
+    <button onclick="window.location.href='fleet.html'">Fleet</button>
+    <button onclick="window.location.href='maintenance.html'">Maintenance</button>
+  </div>
 
-          <div class="divider"></div>
+  <div class="container">
+    <div class="title">OCN Web EFB – Home</div>
 
-          <div class="grid-2">
-            <div>
-              <div class="field-label">Route</div>
-              <div class="field-value" id="route">EDDF → EDDM</div>
-              <div class="field-value-small" id="routeText">ANEKI Y100 ROKIL · FL320</div>
-            </div>
-            <div>
-              <div class="field-label">Aircraft</div>
-              <div class="field-value" id="aircraftReg">D-OCNA</div>
-              <div class="field-value-small" id="aircraftType">A320-214 · MSN 5123</div>
-            </div>
-          </div>
+    <p>Willkommen im OCN EFB. Du kannst dich mit deiner <b>SimBrief UserID</b> einloggen.</p>
 
-          <div class="divider"></div>
-
-          <div class="grid-2">
-            <div>
-              <div class="field-label">Fuel</div>
-              <div class="field-value" id="fuelPlan">6.1 / 5.4 t</div>
-              <div class="field-value-small" id="fuelBreakdown">TAXI 0.3 · CONT 0.4 · EXTRA 0.0</div>
-            </div>
-            <div>
-              <div class="field-label">Payload</div>
-              <div class="field-value" id="payload">14.2 t</div>
-              <div class="field-value-small" id="paxCargo">132 PAX · 1.8 t CARGO</div>
-            </div>
-          </div>
-
-          <div class="divider"></div>
-
-          <div class="tags">
-            <span class="tag">SOP: OCN A320 · REV 1.3</span>
-            <span class="tag">DEPART RWY 25C · NADP 1</span>
-            <span class="tag">ARR RWY 26R · ILS CAT I</span>
-          </div>
-
-          <div class="btn-row">
-            <button class="primary" id="btnLoadFromSimbrief">Load from SimBrief</button>
-            <button id="btnTogglePhase">Next Phase</button>
-            <button id="btnCopyOfp">Copy OFP Text</button>
-          </div>
-        </div>
-
-        <!-- TURNAROUND / TIMERS -->
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">Turnaround · Ground Ops</div>
-            <span class="badge">GATE A20 · EDDF</span>
-          </div>
-
-          <div class="grid-2">
-            <div>
-              <div class="field-label">Turnaround Timer</div>
-              <div class="field-value timer" id="turnTimer">00:30:00</div>
-              <div class="field-value-small" id="turnInfo">STD 09:15Z · OFF-BLOCK 09:05Z</div>
-            </div>
-            <div>
-              <div class="field-label">Ground Status</div>
-              <div class="status-row">
-                <span class="status-label">Boarding</span>
-                <span class="status-value status-ok" id="statusBoarding">IN PROGRESS</span>
-              </div>
-              <div class="status-row">
-                <span class="status-label">Baggage</span>
-                <span class="status-value status-ok" id="statusBaggage">COMPLETED</span>
-              </div>
-              <div class="status-row">
-                <span class="status-label">Fuel</span>
-                <span class="status-value status-warn" id="statusFuel">WAITING TRUCK</span>
-              </div>
-              <div class="status-row">
-                <span class="status-label">Catering</span>
-                <span class="status-value" id="statusCatering">SCHEDULED</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="btn-row">
-            <button id="btnStartTurn">Start Turnaround</button>
-            <button id="btnResetTurn">Reset</button>
-            <button id="btnGroundReady">Set Ground Ready</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- RIGHT COLUMN -->
-      <div class="column-right">
-        <!-- WEATHER / NOTAMS -->
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">Weather · NOTAMs</div>
-            <span class="badge">WX / OPS</span>
-          </div>
-
-          <div class="grid-2">
-            <div>
-              <div class="field-label">Departure METAR</div>
-              <div class="field-value-small" id="metarDep">
-                EDDF 010820Z 23008KT 9999 FEW020 06/02 Q1018 NOSIG
-              </div>
-              <div class="field-label" style="margin-top:6px;">Arrival METAR</div>
-              <div class="field-value-small" id="metarArr">
-                EDDM 010820Z 21006KT 9999 SCT025 05/01 Q1017 NOSIG
-              </div>
-            </div>
-            <div>
-              <div class="field-label">Company NOTAMs</div>
-              <div class="list" id="notamList">
-                <!-- wird per JS aus notams.json geladen -->
-              </div>
-            </div>
-          </div>
-
-          <div class="btn-row">
-            <button id="btnRefreshWx">Refresh WX</button>
-            <button id="btnCopyMetar">Copy METARs</button>
-          </div>
-        </div>
-
-        <!-- FLEET / MAINTENANCE -->
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">Fleet · Maintenance</div>
-            <span class="badge">TECH CONTROL</span>
-          </div>
-
-          <div class="list" id="fleetList">
-            <!-- wird per JS aus fleet.json geladen -->
-          </div>
-
-          <div class="divider"></div>
-
-          <div class="grid-2">
-            <div>
-              <div class="field-label">Selected Aircraft</div>
-              <div class="field-value" id="selAc">–</div>
-              <div class="field-value-small" id="selAcInfo">–</div>
-            </div>
-            <div>
-              <div class="field-label">Maintenance Status</div>
-              <div class="field-value-small" id="selAcMaint">
-                Select aircraft from list
-              </div>
-            </div>
-          </div>
-
-          <div class="btn-row">
-            <button id="btnReportDefect">Report Defect</button>
-            <button id="btnAcHistory">View History</button>
-          </div>
-        </div>
-
-        <!-- PILOT / DUTY -->
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">Pilot · Duty Status</div>
-            <span class="badge" id="pilotRoleBadge">LINE PILOT</span>
-          </div>
-
-          <div class="grid-2">
-            <div>
-              <div class="field-label">Pilot</div>
-              <div class="field-value" id="pilotName">UNLOGGED</div>
-              <div class="field-value-small" id="pilotId">ID: –</div>
-            </div>
-            <div>
-              <div class="field-label">Duty Time</div>
-              <div class="field-value" id="dutyTimer">00:00</div>
-              <div class="field-value-small" id="dutyLimit">MAX 10:00 · REST REQ 12:00</div>
-            </div>
-          </div>
-
-          <div class="divider"></div>
-
-          <div class="tags">
-            <span class="pill-role" id="pilotRole">LINE OPS</span>
-            <span class="tag">RECURRENT DUE: 15 APR</span>
-            <span class="tag">LAST CHECK: LINE CHECK OK</span>
-          </div>
-
-          <div class="btn-row">
-            <button id="btnStartDuty">Start Duty</button>
-            <button id="btnEndDuty">End Duty</button>
-          </div>
-        </div>
-      </div>
+    <div class="input-row">
+      <input id="pilotIdInput" placeholder="SimBrief UserID" />
+      <button class="primary" id="loginBtn">Login</button>
     </div>
+
+    <p id="loginStatus" style="margin-top:20px; color:#2aa9ff;"></p>
   </div>
 
   <script>
-    const state = {
-      phaseIndex: 0,
-      phases: ["PRE-FLIGHT", "BOARDING", "TAXI", "TAKEOFF", "CRUISE", "DESCENT", "APPROACH", "TURNAROUND"],
-      turnSeconds: 30 * 60,
-      turnInterval: null,
-      dutySeconds: 0,
-      dutyInterval: null,
-      loggedIn: false,
-      selectedAc: null,
-    };
-
     const el = (id) => document.getElementById(id);
 
-    // Phase handling
-    function updatePhase() {
-      const phase = state.phases[state.phaseIndex];
-      el("flightStatusBadge").textContent = phase;
-    }
-
-    el("btnTogglePhase").addEventListener("click", () => {
-      state.phaseIndex = (state.phaseIndex + 1) % state.phases.length;
-      updatePhase();
-    });
-
-    // Turnaround timer
-    function formatTime(sec) {
-      const h = Math.floor(sec / 3600);
-      const m = Math.floor((sec % 3600) / 60);
-      const s = sec % 60;
-      return [h, m, s].map((v) => v.toString().padStart(2, "0")).join(":");
-    }
-
-    function updateTurnTimer() {
-      el("turnTimer").textContent = formatTime(state.turnSeconds);
-    }
-
-    el("btnStartTurn").addEventListener("click", () => {
-      if (state.turnInterval) return;
-      state.turnInterval = setInterval(() => {
-        if (state.turnSeconds > 0) {
-          state.turnSeconds--;
-          updateTurnTimer();
-        } else {
-          clearInterval(state.turnInterval);
-          state.turnInterval = null;
-        }
-      }, 1000);
-    });
-
-    el("btnResetTurn").addEventListener("click", () => {
-      state.turnSeconds = 30 * 60;
-      updateTurnTimer();
-      if (state.turnInterval) {
-        clearInterval(state.turnInterval);
-        state.turnInterval = null;
-      }
-    });
-
-    el("btnGroundReady").addEventListener("click", () => {
-      el("statusBoarding").textContent = "COMPLETED";
-      el("statusBaggage").textContent = "COMPLETED";
-      el("statusFuel").textContent = "COMPLETED";
-      el("statusCatering").textContent = "COMPLETED";
-    });
-
-    // Duty timer
-    function updateDutyTimer() {
-      const m = Math.floor(state.dutySeconds / 60);
-      const s = state.dutySeconds % 60;
-      el("dutyTimer").textContent =
-        m.toString().padStart(2, "0") + ":" + s.toString().padStart(2, "0");
-    }
-
-    el("btnStartDuty").addEventListener("click", () => {
-      if (state.dutyInterval) return;
-      state.dutyInterval = setInterval(() => {
-        state.dutySeconds++;
-        updateDutyTimer();
-      }, 1000);
-    });
-
-    el("btnEndDuty").addEventListener("click", () => {
-      if (state.dutyInterval) {
-        clearInterval(state.dutyInterval);
-        state.dutyInterval = null;
-      }
-    });
-
-    // Login mock
-    el("loginBtn").addEventListener("click", () => {
+    el("loginBtn").addEventListener("click", async () => {
       const id = el("pilotIdInput").value.trim();
       if (!id) return;
-      state.loggedIn = true;
-      el("pilotName").textContent = "OCN Pilot";
-      el("pilotId").textContent = "ID: " + id;
-      el("simStatus").textContent = "SIM LINK ACTIVE";
+
+      const res = await fetch(`https://www.simbrief.com/api/xml.fetcher.php?userid=${id}`);
+      const text = await res.text();
+
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(text, "text/xml");
+
+      const pilotName = xml.querySelector("general")?.querySelector("pilot_name")?.textContent || "SimBrief Pilot";
+
+      el("loginStatus").textContent = `Logged in as ${pilotName} (SimBrief ID: ${id})`;
     });
-
-    // Clipboard helpers
-    el("btnCopyOfp").addEventListener("click", () => {
-      const text = `OCN123 EDDF-EDDM
-FL320 · A320-214 D-OCNA
-FUEL 6.1 / 5.4 t · 132 PAX · 1.8 t CARGO`;
-      navigator.clipboard?.writeText(text);
-    });
-
-    el("btnCopyMetar").addEventListener("click", () => {
-      const text = `${el("metarDep").textContent}\n${el("metarArr").textContent}`;
-      navigator.clipboard?.writeText(text);
-    });
-
-    // SimBrief Integration (einfach)
-    async function loadSimbrief(userId) {
-      try {
-        const url = `https://www.simbrief.com/api/xml.fetcher.php?userid=${userId}`;
-        const res = await fetch(url);
-        const text = await res.text();
-        const parser = new DOMParser();
-        const xml = parser.parseFromString(text, "text/xml");
-
-        const flight = xml.querySelector("general");
-        const origin = xml.querySelector("origin");
-        const dest = xml.querySelector("destination");
-        const aircraft = xml.querySelector("aircraft");
-
-        el("flightNumber").textContent =
-          flight.querySelector("icao_airline").textContent +
-          flight.querySelector("flight_number").textContent;
-        el("callsign").textContent = el("flightNumber").textContent + " · LINE OPS";
-        el("route").textContent =
-          origin.querySelector("icao_code").textContent +
-          " → " +
-          dest.querySelector("icao_code").textContent;
-        el("routeText").textContent = xml.querySelector("navlog route")?.textContent || "ROUTE N/A";
-        el("aircraftReg").textContent = aircraft.querySelector("registration").textContent;
-        el("aircraftType").textContent = aircraft.querySelector("icaocode").textContent;
-        el("fuelPlan").textContent =
-          flight.querySelector("fuel_plan_ramp").textContent + " KG";
-        el("payload").textContent = flight.querySelector("payload").textContent + " KG";
-      } catch (e) {
-        alert("SimBrief konnte nicht geladen werden.");
-      }
-    }
-
-    el("btnLoadFromSimbrief").addEventListener("click", () => {
-      const id = prompt("SimBrief UserID eingeben:");
-      if (id) loadSimbrief(id);
-    });
-
-    // WX Placeholder
-    el("btnRefreshWx").addEventListener("click", () => {
-      alert("WX-Refresh: Später METAR/TAF-API einbauen (z.B. AVWX).");
-    });
-
-    // Fleet / NOTAMs / Maintenance aus JSON laden
-    async function loadNotams() {
-      try {
-        const res = await fetch("notams.json");
-        const data = await res.json();
-        const list = el("notamList");
-        list.innerHTML = "";
-        data.forEach((n) => {
-          const div = document.createElement("div");
-          div.className = "list-item";
-          div.innerHTML = `
-            <span>${n.title}</span>
-            <span class="pill-small">${n.valid}</span>
-          `;
-          list.appendChild(div);
-        });
-      } catch (e) {
-        el("notamList").innerHTML = "<div>NOTAMs not available</div>";
-      }
-    }
-
-    async function loadFleet() {
-      try {
-        const res = await fetch("fleet.json");
-        const fleet = await res.json();
-        const list = el("fleetList");
-        list.innerHTML = "";
-        fleet.forEach((ac) => {
-          const div = document.createElement("div");
-          div.className = "list-item";
-          div.innerHTML = `
-            <span>${ac.reg} · ${ac.type} · ${ac.location}</span>
-            <span class="${
-              ac.status === "SERVICEABLE"
-                ? "status-ok"
-                : ac.status === "MEL"
-                ? "status-warn"
-                : "status-bad"
-            }">${ac.status}</span>
-          `;
-          div.addEventListener("click", () => selectAircraft(ac.reg));
-          list.appendChild(div);
-        });
-      } catch (e) {
-        el("fleetList").innerHTML = "<div>Fleet data not available</div>";
-      }
-    }
-
-    async function selectAircraft(reg) {
-      state.selectedAc = reg;
-      el("selAc").textContent = reg;
-      try {
-        const res = await fetch("maintenance.json");
-        const data = await res.json();
-        const ac = data.find((a) => a.reg === reg);
-        if (!ac) {
-          el("selAcInfo").textContent = "No maintenance data";
-          el("selAcMaint").textContent = "No open defects";
-          return;
-        }
-        el("selAcInfo").textContent = `CYCLES ${ac.cycles || "N/A"} · HOURS ${ac.hours || "N/A"}`;
-        if (ac.defects && ac.defects.length > 0) {
-          el("selAcMaint").textContent =
-            ac.defects.length + " open defect(s): " + ac.defects.map((d) => d.title).join(", ");
-        } else {
-          el("selAcMaint").textContent = "No open defects";
-        }
-      } catch (e) {
-        el("selAcInfo").textContent = "Maintenance data not available";
-        el("selAcMaint").textContent = "";
-      }
-    }
-
-    el("btnReportDefect").addEventListener("click", () => {
-      if (!state.selectedAc) {
-        alert("Bitte zuerst ein Aircraft in der Liste anklicken.");
-        return;
-      }
-      alert(
-        "Defect-Reporting: In der echten Version würdest du hier ein Formular haben, das an euer Backend sendet."
-      );
-    });
-
-    el("btnAcHistory").addEventListener("click", () => {
-      if (!state.selectedAc) {
-        alert("Bitte zuerst ein Aircraft in der Liste anklicken.");
-        return;
-      }
-      alert("History-View: Später könnt ihr hier ein Logbuch anzeigen.");
-    });
-
-    // Init
-    function init() {
-      updatePhase();
-      updateTurnTimer();
-      updateDutyTimer();
-      loadNotams();
-      loadFleet();
-    }
-
-    init();
   </script>
+
 </body>
 </html>
