@@ -136,9 +136,8 @@
       background: #58bfff;
     }
 
-    #loginStatus {
-      margin-top: 10px;
-      color: #58bfff;
+    #ofpBox p {
+      margin: 4px 0;
     }
   </style>
 </head>
@@ -152,8 +151,6 @@
     <div class="nav-item" onclick="window.location.href='map.html'">Live Map</div>
     <div class="nav-item" onclick="window.location.href='fleet.html'">Fleet</div>
     <div class="nav-item" onclick="window.location.href='maintenance.html'">Maintenance</div>
-    <div class="nav-item" onclick="window.location.href='documents.html'">Documents</div>
-    <div class="nav-item" onclick="window.location.href='about.html'">About</div>
   </div>
 
   <!-- Main -->
@@ -164,9 +161,8 @@
       <div class="banner-overlay">
         <div class="banner-title">vOCN · Discover Virtual</div>
         <div class="pilot-box">
-          <b></b><br>
-          <br>
-          
+          <b id="pilotNameBox">Pilot Offline</b><br>
+          <span id="pilotIdBox">Bitte einloggen</span>
         </div>
       </div>
     </div>
@@ -176,7 +172,7 @@
 
       <div class="card">
         <h3>SimBrief Login</h3>
-        <p>Logge dich mit deiner <b>SimBrief UserID</b> ein, um OFP‑Daten zu laden.</p>
+        <p>Gib deine <b>SimBrief UserID</b> ein, um OFP‑Daten zu laden.</p>
 
         <input id="pilotIdInput" placeholder="SimBrief UserID">
         <button id="loginBtn">Login</button>
@@ -185,10 +181,8 @@
       </div>
 
       <div class="card">
-        <h3>Quick Actions</h3>
-        <button onclick="window.location.href='map.html'">Open Live Map</button>
-        <button onclick="window.location.href='fleet.html'">View Fleet</button>
-        <button onclick="window.location.href='maintenance.html'">Maintenance</button>
+        <h3>OFP Daten</h3>
+        <div id="ofpBox">Noch keine Daten geladen.</div>
       </div>
 
     </div>
@@ -207,9 +201,39 @@
       const parser = new DOMParser();
       const xml = parser.parseFromString(text, "text/xml");
 
-      const pilotName = xml.querySelector("general")?.querySelector("pilot_name")?.textContent || "SimBrief Pilot";
+      const general = xml.querySelector("general");
+      const aircraft = xml.querySelector("aircraft");
+      const weights = xml.querySelector("weights");
+      const times = xml.querySelector("times");
 
-      el("loginStatus").textContent = `Logged in as ${pilotName} (SimBrief ID: ${id})`;
+      const pilotName = general?.querySelector("pilot_name")?.textContent || "SimBrief Pilot";
+      const flightNumber = general?.querySelector("flight_number")?.textContent || "N/A";
+      const dep = general?.querySelector("origin")?.textContent || "N/A";
+      const arr = general?.querySelector("destination")?.textContent || "N/A";
+      const route = general?.querySelector("route")?.textContent || "N/A";
+
+      const pax = weights?.querySelector("pax_count")?.textContent || "0";
+      const cargo = weights?.querySelector("cargo")?.textContent || "0";
+      const blockFuel = weights?.querySelector("block_fuel")?.textContent || "0";
+
+      const etd = times?.querySelector("est_out")?.textContent || "N/A";
+      const eta = times?.querySelector("est_in")?.textContent || "N/A";
+
+      el("pilotNameBox").textContent = pilotName;
+      el("pilotIdBox").textContent = "SimBrief ID: " + id;
+
+      el("loginStatus").textContent = `OFP geladen für Flug ${flightNumber}`;
+
+      el("ofpBox").innerHTML = `
+        <p><b>Flug:</b> ${flightNumber}</p>
+        <p><b>Route:</b> ${dep} → ${arr}</p>
+        <p><b>Routing:</b> ${route}</p>
+        <p><b>Pax:</b> ${pax}</p>
+        <p><b>Cargo:</b> ${cargo} kg</p>
+        <p><b>Block Fuel:</b> ${blockFuel} kg</p>
+        <p><b>ETD:</b> ${etd}</p>
+        <p><b>ETA:</b> ${eta}</p>
+      `;
     });
   </script>
 
