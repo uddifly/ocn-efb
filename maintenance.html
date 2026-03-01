@@ -1,35 +1,141 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
   <meta charset="UTF-8">
   <title>OCN Maintenance</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
-    body { background:#050814; color:#fff; font-family:Arial; padding:20px; }
-    .item { padding:10px; border-bottom:1px solid #27314a; }
+    body {
+      margin: 0;
+      background: #0b0e19;
+      color: #fff;
+      font-family: "Segoe UI", Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .sidebar {
+      width: 240px;
+      background: #0f1324;
+      border-right: 1px solid #1d2338;
+      padding-top: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #2aa9ff;
+      letter-spacing: 1px;
+    }
+
+    .nav-item {
+      padding: 12px 20px;
+      cursor: pointer;
+      color: #c7cbe0;
+      font-size: 14px;
+      border-left: 3px solid transparent;
+    }
+
+    .nav-item:hover {
+      background: #1a2038;
+      border-left: 3px solid #2aa9ff;
+      color: #fff;
+    }
+
+    .main {
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .banner {
+      background: url('https://images.pexels.com/photos/358319/pexels-photo-358319.jpeg') center/cover no-repeat;
+      height: 160px;
+      position: relative;
+      border-bottom: 1px solid #1d2338;
+    }
+
+    .banner-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .card {
+      background: #111627;
+      border: 1px solid #1d2338;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .item {
+      padding: 12px 0;
+      border-bottom: 1px solid #27314a;
+    }
   </style>
 </head>
+
 <body>
 
-<h2>OCN Maintenance</h2>
-<div id="maint"></div>
+  <div class="sidebar">
+    <h2>OCN EFB</h2>
+    <div class="nav-item" onclick="window.location.href='index.html'">Dashboard</div>
+    <div class="nav-item" onclick="window.location.href='map.html'">Live Map</div>
+    <div class="nav-item" onclick="window.location.href='fleet.html'">Fleet</div>
+    <div class="nav-item" onclick="window.location.href='maintenance.html'">Maintenance</div>
+  </div>
 
-<script>
-async function loadMaint() {
-  const res = await fetch("maintenance.json");
-  const data = await res.json();
-  const list = document.getElementById("maint");
+  <div class="main">
+    <div class="banner">
+      <div class="banner-overlay">Maintenance Overview</div>
+    </div>
 
-  data.forEach(ac => {
-    const div = document.createElement("div");
-    div.className = "item";
-    div.innerHTML = `<b>${ac.reg}</b><br>Hours: ${ac.hours}<br>Cycles: ${ac.cycles}<br>Defects: ${
-      ac.defects.length > 0 ? ac.defects.map(d => d.title).join(", ") : "None"
-    }`;
-    list.appendChild(div);
-  });
-}
-loadMaint();
-</script>
+    <div class="content">
+      <div class="card">
+        <h3>Technischer Zustand</h3>
+        <div id="maint"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    async function loadMaint() {
+      const res = await fetch("maintenance.json");
+      const data = await res.json();
+      const list = document.getElementById("maint");
+
+      data.forEach(ac => {
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `
+          <b>${ac.reg}</b><br>
+          Hours: ${ac.hours}<br>
+          Cycles: ${ac.cycles}<br>
+          Defects: ${
+            ac.defects.length > 0
+              ? ac.defects.map(d => d.title).join(", ")
+              : "Keine"
+          }
+        `;
+        list.appendChild(div);
+      });
+    }
+    loadMaint();
+  </script>
 
 </body>
 </html>
