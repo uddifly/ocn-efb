@@ -4,76 +4,194 @@
   <meta charset="UTF-8" />
   <title>OCN Web EFB</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <style>
     body {
       margin: 0;
-      background: #050814;
+      background: #0b0e19;
       color: #fff;
-      font-family: Arial, sans-serif;
-    }
-    .navbar {
+      font-family: "Segoe UI", Arial, sans-serif;
       display: flex;
-      background: #0b1020;
-      padding: 10px;
-      gap: 10px;
-      border-bottom: 1px solid #1b2238;
+      height: 100vh;
+      overflow: hidden;
     }
-    .navbar button {
-      background: #050814;
-      border: 1px solid #27314a;
-      color: #fff;
-      padding: 8px 14px;
-      border-radius: 6px;
+
+    /* Sidebar */
+    .sidebar {
+      width: 240px;
+      background: #0f1324;
+      border-right: 1px solid #1d2338;
+      padding-top: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #2aa9ff;
+      letter-spacing: 1px;
+    }
+
+    .nav-item {
+      padding: 12px 20px;
       cursor: pointer;
+      color: #c7cbe0;
+      font-size: 14px;
+      border-left: 3px solid transparent;
     }
-    .navbar button:hover {
-      background: #2aa9ff;
-      border-color: #2aa9ff;
+
+    .nav-item:hover {
+      background: #1a2038;
+      border-left: 3px solid #2aa9ff;
+      color: #fff;
     }
-    .container {
+
+    /* Main Content */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    /* Header Banner */
+    .banner {
+      background: url('https://images.pexels.com/photos/358319/pexels-photo-358319.jpeg') center/cover no-repeat;
+      height: 180px;
+      position: relative;
+      border-bottom: 1px solid #1d2338;
+    }
+
+    .banner-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .banner-title {
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .pilot-box {
+      text-align: right;
+      font-size: 14px;
+      color: #d0d4e6;
+    }
+
+    .pilot-box b {
+      color: #fff;
+      font-size: 16px;
+    }
+
+    /* Content Area */
+    .content {
       padding: 20px;
     }
-    .title {
-      font-size: 22px;
-      margin-bottom: 10px;
+
+    .card {
+      background: #111627;
+      border: 1px solid #1d2338;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
     }
-    .input-row {
-      margin-top: 20px;
+
+    .card h3 {
+      margin: 0 0 10px 0;
+      font-size: 18px;
+      color: #2aa9ff;
     }
+
     input {
-      padding: 8px;
+      padding: 10px;
       border-radius: 6px;
       border: 1px solid #27314a;
       background: #0b1020;
       color: #fff;
+      width: 200px;
     }
-    button.primary {
+
+    button {
+      padding: 10px 16px;
+      border-radius: 6px;
+      border: none;
       background: #2aa9ff;
-      border-color: #2aa9ff;
+      color: #000;
+      font-weight: 600;
+      cursor: pointer;
       margin-left: 10px;
+    }
+
+    button:hover {
+      background: #58bfff;
+    }
+
+    #loginStatus {
+      margin-top: 10px;
+      color: #58bfff;
     }
   </style>
 </head>
+
 <body>
 
-  <div class="navbar">
-    <button onclick="window.location.href='index.html'">Home</button>
-    <button onclick="window.location.href='map.html'">Live Map</button>
-    <button onclick="window.location.href='fleet.html'">Fleet</button>
-    <button onclick="window.location.href='maintenance.html'">Maintenance</button>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>OCN EFB</h2>
+    <div class="nav-item" onclick="window.location.href='index.html'">Dashboard</div>
+    <div class="nav-item" onclick="window.location.href='map.html'">Live Map</div>
+    <div class="nav-item" onclick="window.location.href='fleet.html'">Fleet</div>
+    <div class="nav-item" onclick="window.location.href='maintenance.html'">Maintenance</div>
+    <div class="nav-item" onclick="window.location.href='documents.html'">Documents</div>
+    <div class="nav-item" onclick="window.location.href='about.html'">About</div>
   </div>
 
-  <div class="container">
-    <div class="title">OCN Web EFB – Home</div>
+  <!-- Main -->
+  <div class="main">
 
-    <p>Willkommen im OCN EFB. Du kannst dich mit deiner <b>SimBrief UserID</b> einloggen.</p>
-
-    <div class="input-row">
-      <input id="pilotIdInput" placeholder="SimBrief UserID" />
-      <button class="primary" id="loginBtn">Login</button>
+    <!-- Banner -->
+    <div class="banner">
+      <div class="banner-overlay">
+        <div class="banner-title">vOCN · Discover Virtual</div>
+        <div class="pilot-box">
+          <b></b><br>
+          <br>
+          
+        </div>
+      </div>
     </div>
 
-    <p id="loginStatus" style="margin-top:20px; color:#2aa9ff;"></p>
+    <!-- Content -->
+    <div class="content">
+
+      <div class="card">
+        <h3>SimBrief Login</h3>
+        <p>Logge dich mit deiner <b>SimBrief UserID</b> ein, um OFP‑Daten zu laden.</p>
+
+        <input id="pilotIdInput" placeholder="SimBrief UserID">
+        <button id="loginBtn">Login</button>
+
+        <p id="loginStatus"></p>
+      </div>
+
+      <div class="card">
+        <h3>Quick Actions</h3>
+        <button onclick="window.location.href='map.html'">Open Live Map</button>
+        <button onclick="window.location.href='fleet.html'">View Fleet</button>
+        <button onclick="window.location.href='maintenance.html'">Maintenance</button>
+      </div>
+
+    </div>
   </div>
 
   <script>
