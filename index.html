@@ -146,11 +146,95 @@
 
   <!-- Sidebar -->
   <div class="sidebar">
-    <img src="vocn-logo.png">
+    <img src="vocnlogo.png">
 
     <div class="nav-item" onclick="window.location.href='index.html'">Dashboard</div>
     <div class="nav-item" onclick="window.location.href='statistics.html'">Statistics</div>
     <div class="nav-item" onclick="window.location.href='timeline.html'">Timeline</div>
     <div class="nav-item" onclick="window.location.href='map.html'">Live Map</div>
     <div class="nav-item" onclick="window.location.href='fleet.html'">Fleet</div>
-    <div class="nav-item" onclick="window.location.href='maintenance.html'">
+    <div class="nav-item" onclick="window.location.href='maintenance.html'">Maintenance</div>
+    <div class="nav-item" onclick="window.location.href='notams.html'">NOTAMs</div>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+
+    <!-- Banner -->
+    <div class="banner">
+      <div class="banner-overlay">
+        <div class="banner-title">vOCN · Discover Virtual</div>
+        <div class="pilot-box">
+          <b id="pilotNameBox">Pilot Offline</b><br>
+          <span id="pilotIdBox">Bitte einloggen</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+      <div class="card">
+        <h3>SimBrief Login</h3>
+        <p>Gib deine <b>SimBrief UserID</b> ein, um OFP‑Daten zu laden.</p>
+
+        <input id="pilotIdInput" placeholder="SimBrief UserID">
+        <button id="loginBtn">Login</button>
+
+        <p id="loginStatus"></p>
+      </div>
+
+      <div class="card">
+        <h3>OFP Daten</h3>
+        <div id="ofpBox">Noch keine Daten geladen.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const el = (id) => document.getElementById(id);
+
+    el("loginBtn").addEventListener("click", async () => {
+      const id = el("pilotIdInput").value.trim();
+      if (!id) return;
+
+      const url = `https://www.simbrief.com/api/xml.fetcher.php?userid=${id}`;
+      const res = await fetch(url);
+      const xmlText = await res.text();
+
+      const xml = new DOMParser().parseFromString(xmlText, "text/xml");
+
+      const pilotName = xml.querySelector("pilot_name")?.textContent || "SimBrief Pilot";
+      const flightNumber = xml.querySelector("flight_number")?.textContent || "N/A";
+      const dep = xml.querySelector("origin")?.textContent || "N/A";
+      const arr = xml.querySelector("destination")?.textContent || "N/A";
+      const route = xml.querySelector("route")?.textContent || "N/A";
+
+      const pax = xml.querySelector("pax")?.textContent || "0";
+      const cargo = xml.querySelector("cargo_weight")?.textContent || "0";
+      const blockFuel = xml.querySelector("fuel_plan_ramp")?.textContent || "0";
+
+      const etd = xml.querySelector("sched_out")?.textContent || "N/A";
+      const eta = xml.querySelector("sched_in")?.textContent || "N/A";
+
+      el("pilotNameBox").textContent = pilotName;
+      el("pilotIdBox").textContent = "SimBrief ID: " + id;
+
+      el("loginStatus").textContent = `OFP geladen für Flug ${flightNumber}`;
+
+      el("ofpBox").innerHTML = `
+        <p><b>Flug:</b> ${flightNumber}</p>
+        <p><b>Route:</b> ${dep} → ${arr}</p>
+        <p><b>Routing:</b> ${route}</p>
+        <p><b>Pax:</b> ${pax}</p>
+        <p><b>Cargo:</b> ${cargo} kg</p>
+        <p><b>Block Fuel:</b> ${blockFuel} kg</p>
+        <p><b>ETD:</b> ${etd}</p>
+        <p><b>ETA:</b> ${eta}</p>
+      `;
+    });
+  </script>
+
+</body>
+</html>
