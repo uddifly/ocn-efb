@@ -2,9 +2,10 @@
   const el = (id) => document.getElementById(id);
 
   el("loginBtn").addEventListener("click", async () => {
-    const id = el("pilotIdInput").value.trim();
-    if (!id) {
-      el("loginStatus").textContent = "Bitte SimBrief UserID eingeben.";
+    const username = el("pilotIdInput").value.trim();
+
+    if (!username) {
+      el("loginStatus").textContent = "Bitte SimBrief Username eingeben.";
       return;
     }
 
@@ -12,7 +13,7 @@
     el("ofpBox").innerHTML = "Lade Daten...";
 
     try {
-      const res = await fetch(`https://www.simbrief.com/api/xml.fetcher.php?userid=${id}`);
+      const res = await fetch(`https://www.simbrief.com/api/xml.fetcher.php?username=${encodeURIComponent(username)}`);
 
       if (!res.ok) {
         throw new Error("HTTP Fehler: " + res.status);
@@ -21,7 +22,7 @@
       const text = await res.text();
 
       if (!text || text.includes("Error")) {
-        throw new Error("Keine gültigen OFP-Daten gefunden.");
+        throw new Error("Kein OFP gefunden oder falscher Username.");
       }
 
       const parser = new DOMParser();
@@ -37,10 +38,10 @@
       const times = xml.querySelector("times");
 
       if (!general) {
-        throw new Error("Ungültige SimBrief UserID oder kein OFP vorhanden.");
+        throw new Error("Ungültiger Username oder kein OFP vorhanden.");
       }
 
-      const pilotName = general.querySelector("pilot_name")?.textContent || "SimBrief Pilot";
+      const pilotName = general.querySelector("pilot_name")?.textContent || username;
       const flightNumber = general.querySelector("flight_number")?.textContent || "N/A";
       const dep = general.querySelector("origin")?.textContent || "N/A";
       const arr = general.querySelector("destination")?.textContent || "N/A";
@@ -53,8 +54,10 @@
       const etd = times?.querySelector("est_out")?.textContent || "N/A";
       const eta = times?.querySelector("est_in")?.textContent || "N/A";
 
+      // Header aktualisieren
       el("pilotNameBox").textContent = pilotName;
-      el("pilotIdBox").textContent = "SimBrief ID: " + id;
+      el("pilotIdBox").textContent = "SimBrief: " + username;
+
       el("loginStatus").textContent = `OFP geladen für Flug ${flightNumber}`;
 
       el("ofpBox").innerHTML = `
@@ -68,10 +71,22 @@
         <p><b>ETA:</b> ${eta}</p>
       `;
 
+      // Username speichern
+      localStorage.setItem("simbrief_username", username);
+
     } catch (err) {
       console.error(err);
       el("loginStatus").textContent = "Fehler beim Laden des OFP.";
       el("ofpBox").innerHTML = `<p style="color:#ff6b6b;">${err.message}</p>`;
+    }
+  });
+
+  // Auto-Login falls gespeichert
+  window.addEventListener("load", () => {
+    const saved = localStorage.getItem("simbrief_username");
+    if (saved) {
+      el("pilotIdInput").value = saved;
+      el("loginBtn").click();
     }
   });
 </script>
